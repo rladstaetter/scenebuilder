@@ -112,6 +112,7 @@ class SkeletonFileNameProposal {
             String resources = resolvePath(sourcePackage, "resources");
             String java = resolvePath(sourcePackage, "java");
             String kotlin = resolvePath(sourcePackage, "kotlin");
+            String scala = resolvePath(sourcePackage, "scala");
             if (location.contains(resources)) {
                 switch (language) {
                 case JAVA:
@@ -119,6 +120,9 @@ class SkeletonFileNameProposal {
                     break;
                 case KOTLIN:
                     location = location.replace(resources, kotlin);
+                    break;
+                case SCALA:
+                    location = location.replace(resources, scala);
                     break;
                 }
             }

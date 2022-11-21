@@ -31,15 +31,16 @@
  */
 package com.oracle.javafx.scenebuilder.kit.skeleton;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SkeletonSettingsTest {
 
     @Test
     public void that_controller_class_file_extensions_match_language() {
         assertEquals(".java", SkeletonSettings.LANGUAGE.JAVA.getExtension());
-        assertEquals(".kt",   SkeletonSettings.LANGUAGE.KOTLIN.getExtension());
+        assertEquals(".kt", SkeletonSettings.LANGUAGE.KOTLIN.getExtension());
+        assertEquals(".scala", SkeletonSettings.LANGUAGE.SCALA.getExtension());
     }
 }

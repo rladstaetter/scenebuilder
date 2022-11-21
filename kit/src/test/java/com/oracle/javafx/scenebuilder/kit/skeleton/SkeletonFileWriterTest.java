@@ -144,6 +144,13 @@ public class SkeletonFileWriterTest {
         classUnderTest.run(url, null, language);
 
         assertEquals("MyCustomViewController.kt", filesProposed.get(1).getName());
+
+        // SCALA CASE
+        language = SkeletonSettings.LANGUAGE.SCALA;
+        classUnderTest.run(url, null, language);
+
+        assertEquals("MyCustomViewController.scala", filesProposed.get(2).getName());
+
     }
 
     @Test
@@ -236,6 +243,22 @@ public class SkeletonFileWriterTest {
         assertEquals("Java", fileExtensionFilters.get(1).getDescription());
         assertEquals("*.java", fileExtensionFilters.get(1).getExtensions().get(0));
 
+        language = SkeletonSettings.LANGUAGE.SCALA;
+        textProperty.setValue("MyScalaCode");
+        classUnderTest.run(null, controllerName, language);
+
+        // THEN
+        expectedFile = temporaryDirectory.resolve("MyVeryNewController.scala").toFile();
+
+        assertTrue(expectedFile.exists());
+        assertEquals(expectedFile, filesProposed.get(2));
+        assertEquals("MyScalaCode", Files.readString(expectedFile.toPath()));
+        assertEquals(3, classUnderTest.getLastSavedFilesPerLanguage().size());
+        assertEquals(expectedFile, classUnderTest.getLastSavedFilesPerLanguage().get(language));
+        assertEquals("Scala", fileExtensionFilters.get(2).getDescription());
+        assertEquals("*.scala", fileExtensionFilters.get(2).getExtensions().get(0));
+
+
         /*
          * Now, for JAVA and KOTLIN a file has been saved.
          * After switching back to Kotlin, the expectation here is, that the 
@@ -252,10 +275,10 @@ public class SkeletonFileWriterTest {
         assertTrue(expectedFile.exists());
         assertEquals(expectedFile, filesProposed.get(0));
         assertEquals("MyKotlinCode", Files.readString(expectedFile.toPath()));
-        assertEquals(2, classUnderTest.getLastSavedFilesPerLanguage().size());
+        assertEquals(3, classUnderTest.getLastSavedFilesPerLanguage().size());
         assertEquals(expectedFile, classUnderTest.getLastSavedFilesPerLanguage().get(language));
-        assertEquals("Kotlin", fileExtensionFilters.get(2).getDescription());
-        assertEquals("*.kt", fileExtensionFilters.get(2).getExtensions().get(0));
+        assertEquals("Kotlin", fileExtensionFilters.get(3).getDescription());
+        assertEquals("*.kt", fileExtensionFilters.get(3).getExtensions().get(0));
     }
 
     /**
